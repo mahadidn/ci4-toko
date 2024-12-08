@@ -26,6 +26,6 @@ class UserSeeder extends Seeder
             'id_member' => 1
         ]);
 
-
+        
     }
 }

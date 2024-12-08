@@ -1,5 +1,31 @@
 # CodeIgniter 4 Application Starter
 
+## Urutan menjalankan database seeder
+1. 
+```bash
+php spark db:seed UserSeeder
+```
+2. 
+```bash
+php spark db:seed TokoSeeder
+```
+3.
+```bash
+php spark db:seed KategoriSeeder
+```
+4.
+```bash
+php spark db:seed BarangSeeder
+```
+5.
+```bash
+php spark db:seed PenjualanSeeder
+```
+6.
+```bash
+php spark db:seed NotaSeeder
+```
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.

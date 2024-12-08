@@ -16,7 +16,7 @@ class LoginController extends BaseController
         
         if(session()->get('logged_in')){
             // kalo dia udah login, gaperlu kehalaman login lagi
-            return redirect()->to("/");
+            return redirect()->to(base_url("/"));
         }
 
         // jalankan validation, nanti validation ini digunakan di view login buat validasi
@@ -100,7 +100,7 @@ class LoginController extends BaseController
         $session = session();
         // hapus semua session yang disimpan
         $session->destroy();
-        return redirect()->to('/');
+        return redirect()->to(base_url('/login'));
 
     }
 }
