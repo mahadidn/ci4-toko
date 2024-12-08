@@ -6,6 +6,10 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('login');
+        if(!session()->get('logged_in')){
+            redirect()->to('/login');
+        }
+
+        return view('welcome_message');
     }
 }

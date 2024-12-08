@@ -34,8 +34,17 @@
 
 	  <div id="login-page" style="padding-top:3pc;" >
 	  	<div class="container" >
-		      <form class="form-login" method="POST" >
-		        <h2 class="form-login-heading" style="background-color:#3399ff; color:black">Arga Dwi Mart
+        <form class="form-login" method="POST" action="<?= base_url('/login') ?>" >
+          <?php if (!empty(session()->getFlashdata('pesan'))) : ?>
+              <div class="alert bg-danger ?>" role="alert">
+  
+                  <div class="iq-alert-text"> <small><?= session()->getFlashdata('pesan') ?> </small></div>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="ri-close-line"></i>
+                  </button>
+              </div>
+          <?php endif ?>
+          <h2 class="form-login-heading" style="background-color:#3399ff; color:black">Arga Dwi Mart
 				<center><img src="assets/img/001-stationery.png" height="50" widht = "50" alt="Logo"></center>
 </h2>
 
