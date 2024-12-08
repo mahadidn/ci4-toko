@@ -47,9 +47,10 @@
 			// $row = $config -> prepare($sql);
 			// $row -> execute();
 			// $q = $row -> fetch();
-			// 	if($q['stok'] == 3){
-			// 	if($q['stok'] == 2){
-			// 	if($q['stok'] == 1){
+            $q = 1;
+				if($q == 3){
+				if($q == 2){
+				if($q == 1){
 		?>
 		<script type="text/javascript">
 		//template
@@ -73,7 +74,7 @@
         return false;
         });
 		</script>
-        <?php // }}}?>
+        <?php  }}}?>
 	<script type="application/javascript">
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});

@@ -13,36 +13,29 @@
 				  <h1><img src="assets/img/001-stationery.png" height="50" widht = "50" alt="Logo"> DASHBOARD </h1>
 				  <hr>
 				   <?php 
-						// $sql=" select * from barang where stok <=3";
-						// $row = $config -> prepare($sql);
-						// $row -> execute();
-						// $q = $row -> fetch();
-						// 	if($q['stok'] == 3){	
-						// 	if($q['stok'] == 2){	
-						// 	if($q['stok'] == 1){	
-						// 		?>	
-						// 		<script>
-						// 			$(document).ready(function(){
-						// 				$('#pesan_sedia').css("color","red");
-						// 				$('#pesan_sedia').append("<span class='glyphicon glyphicon-asterisk'></span>");
-						// 			});
-						// 		</script>
-						// 		<?php
-						// 		echo "
-						// 		<br/>
-						// 		<div class='col-sm-12'>
-						// 			<div style='padding:5px;' class='alert alert-warning'>
-						// 				<span class='glyphicon glyphicon-info-sign'></span> Stok  <a style='color:red'>". $q['nama_barang']."</a> yang tersisa sudah kurang dari 3 . silahkan pesan lagi !!
-						// 				<span class='pull-right'><a href='index.php?page=barang'>Tabel Barang <i class='fa fa-arrow-right'></i></a></span>
-						// 			</div>
-						// 		</div>
-						// 		";	
-						// 	}}}
+						
+							if(count($barangKurangDari3) == 3){	
+							if(count($barangKurangDari3) == 2){	
+							if(count($barangKurangDari3) == 1){	
+								?>	
+								<script>
+									$(document).ready(function(){
+										$('#pesan_sedia').css("color","red");
+										$('#pesan_sedia').append("<span class='glyphicon glyphicon-asterisk'></span>");
+									});
+								</script>
+								<?php
+								echo "
+								<br/>
+								<div class='col-sm-12'>
+									<div style='padding:5px;' class='alert alert-warning'>
+										<span class='glyphicon glyphicon-info-sign'></span> Stok  <a style='color:red'>". $barangKurangDari3['nama_barang']."</a> yang tersisa sudah kurang dari 3 . silahkan pesan lagi !!
+										<span class='pull-right'><a href='index.php?page=barang'>Tabel Barang <i class='fa fa-arrow-right'></i></a></span>
+									</div>
+								</div>
+								";	
+							}}}
 						?>
-				  <?php // $hasil_barang = $lihat -> barang_row();?>
-				  <?php // $hasil_kategori = $lihat -> kategori_row();?>
-				  <?php // $stok = $lihat -> barang_stok_row();?>
-				  <?php // $jual = $lihat -> jual_row();?>
                     <div class="row">
                       <!--STATUS PANELS -->
                       	<div class="col-md-3">
@@ -51,7 +44,7 @@
 						  			<h5><i class="fa fa-desktop"></i> Jumlah Barang</h5>
                       			</div>
                       			<div class="panel-body">
-									<center><h1><?php // echo $hasil_barang;?></h1></center>
+									<center><h1><?= $totalBarang;?></h1></center>
 								</div>
 								<div class="panel-footer">
 									<h4 style="font-size:15px;font-weight:700;"><a href='index.php?page=barang'>Tabel Barang <i class='fa fa-angle-double-right'></i></a></h4>
@@ -65,7 +58,7 @@
 						  			<h5><i class="fa fa-desktop"></i> Stok Barang</h5>
                       			</div>
                       			<div class="panel-body">
-									<center><h1><?php // echo $stok['jml']==null?'0':$stok['jml'];?></h1></center>
+									<center><h1><?= $jumlahBarang ?></h1></center>
 								</div>
 								<div class="panel-footer">
 									<h4 style="font-size:15px;font-weight:700;"><a href='index.php?page=barang'>Tabel Barang  <i class='fa fa-angle-double-right'></i></a></h4>
@@ -79,7 +72,7 @@
 						  			<h5><i class="fa fa-desktop"></i> Telah Terjual</h5>
                       			</div>
                       			<div class="panel-body">
-									<center><h1><?php // echo $jual['stok']==null?'0':$jual['stok'];?></h1></center>
+									<center><h1><?= $jual ?></h1></center>
 								</div>
 								<div class="panel-footer">
 									<h4 style="font-size:15px;font-weight:700;font-weight:700;"><a href='index.php?page=laporan'>Tabel laporan  <i class='fa fa-angle-double-right'></i></a></h4>
@@ -92,7 +85,7 @@
 						  			<h5><i class="fa fa-desktop"></i> Kategori Barang</h5>
                       			</div>
                       			<div class="panel-body">
-									<center><h1><?php // echo $hasil_kategori;?></h1></center>
+									<center><h1><?= $totalKategori ?></h1></center>
 								</div>
 								<div class="panel-footer">
 									<h4 style="font-size:15px;font-weight:700;"><a href='index.php?page=kategori'>Tabel Kategori  <i class='fa fa-angle-double-right'></i></a></h4>
