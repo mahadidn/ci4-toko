@@ -55,7 +55,7 @@
 		            <br>
 		            <button class="btn btn-primary btn-block" name="proses" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
 		        </div>
-				<center><p style="color: black;">Repost by <a href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a></p></center>
+				
 		      </form>
 
 
