@@ -1,2 +1,7 @@
-Berhasil Login
-<a href="/logout">Logout</a>
+<?= $this->extend('admin/layout') ?>
+
+<?= $this->section('content') ?>
+
+<?= view('admin/template/home') ?>
+
+<?= $this->endSection() ?>
