@@ -10,24 +10,30 @@
                 <br/>
 
                 <!-- Flash Message -->
-                <?php if (isset($_GET['success-stok'])) { ?>
+                <?php if (session()->getFlashdata('success')): ?>
                     <div class="alert alert-success">
-                        <p>Tambah Stok Berhasil!</p>
+                        <p><?= session()->getFlashdata('success'); ?></p>
                     </div>
-                <?php } ?>
-                <?php if (isset($_GET['success'])) { ?>
-                    <div class="alert alert-success">
-                        <p>Tambah Data Berhasil!</p>
-                    </div>
-                <?php } ?>
-                <?php if (isset($_GET['remove'])) { ?>
+                <?php endif; ?>
+                <?php if (session()->getFlashdata('error')): ?>
                     <div class="alert alert-danger">
-                        <p>Hapus Data Berhasil!</p>
+                        <p><?= session()->getFlashdata('error'); ?></p>
                     </div>
-                <?php } ?>
+                <?php endif; ?>
+
+                <?php if (session()->getFlashdata('errors')): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach(session()->getFlashdata('errors') as $error): ?>
+                                <li><?= $error ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
 
                 <!-- Tombol Tambah Data -->
-                <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#myModal">
+                  <!-- Tombol Tambah Data -->
+                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#myModal">
                     <i class="fa fa-plus"></i> Insert Data
                 </button>
                 <div class="clearfix"></div>
@@ -51,15 +57,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Data Barang - Placeholder -->
-                            <!-- Loop data barang (nantinya dari database) -->
+                            
                             <?php 
-                                // Contoh data statis (dihilangkan jika menggunakan data dinamis)
-                                $barang = []; // $barang = $data['barang']; // Comment fungsional
                                 $no = 1;
+                                $total_beli = 0;
+                                $total_jual = 0;
+                                $total_stok = 0;
                                 foreach ($barang as $isi) { 
-                            ?>
-                                <tr>
+                                    $total_beli += $isi['harga_beli'];
+                                    $total_jual += $isi['harga_jual'];
+                                    $total_stok += $isi['stok'];
+                                ?>
+                           
+                           <tr>
                                     <td><?= $no++; ?></td>
                                     <td><?= $isi['id_barang']; ?></td>
                                     <td><?= $isi['nama_kategori']; ?></td>
@@ -77,17 +87,22 @@
                                     <td><?= $isi['satuan_barang']; ?></td>
                                     <td>
                                         <?php if ($isi['stok'] <= '3') { ?>
-                                            <!-- Form Restok -->
                                             <form method="POST" action="#">
                                                 <input type="text" name="restok" class="form-control">
                                                 <input type="hidden" name="id" value="<?= $isi['id_barang']; ?>" class="form-control">
                                                 <button class="btn btn-primary">Restok</button>
                                             </form>
                                         <?php } else { ?>
-                                            <!-- Tombol Aksi -->
-                                            <a href="#"><button class="btn btn-primary btn-xs">Details</button></a>
-                                            <a href="#"><button class="btn btn-warning btn-xs">Edit</button></a>
-                                            <a href="#" onclick="javascript:return confirm('Hapus Data barang?');"><button class="btn btn-danger btn-xs">Hapus</button></a>
+                                            <a href="<?= site_url('barang/detail/'.$isi['id_barang']) ?>">
+                                                <button class="btn btn-primary btn-xs">Details</button>
+                                            </a>
+                                            <a href="<?= site_url('barang/edit/'.$isi['id_barang']) ?>">
+                                                <button class="btn btn-warning btn-xs">Edit</button>
+                                            </a>
+                                            <a href="<?= site_url('barang/delete/'.$isi['id_barang']) ?>" 
+                                               onclick="javascript:return confirm('Hapus Data barang?');">
+                                                <button class="btn btn-danger btn-xs">Hapus</button>
+                                            </a>
                                         <?php } ?>
                                     </td>
                                 </tr>
@@ -96,16 +111,16 @@
                         <tfoot>
                             <tr>
                                 <th colspan="5">Total</th>
-                                <th>Rp.<?= number_format(0); ?>,-</th>
-                                <th>Rp.<?= number_format(0); ?>,-</th>
-                                <th>0</th>
+                                <th>Rp.<?= number_format($total_beli); ?>,-</th>
+                                <th>Rp.<?= number_format($total_jual); ?>,-</th>
+                                <th><?= $total_stok; ?></th>
                                 <th colspan="2" style="background:#ddd"></th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
 
-                <!-- Modal Tambah Barang -->
+               <!-- Modal Tambah Barang -->
                 <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content" style="border-radius:0px;">
@@ -113,22 +128,24 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title"><i class="fa fa-plus"></i> Tambah Barang</h4>
                             </div>
-                            <form action="#" method="POST">
+                            <form action="<?= site_url('/barang/create') ?>" method="POST">
                                 <div class="modal-body">
                                     <table class="table table-striped bordered">
-                                        <tr>
-                                            <td>ID Barang</td>
-                                            <td><input type="text" readonly="readonly" required class="form-control" name="id"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kategori</td>
-                                            <td>
-                                                <select name="kategori" class="form-control" required>
-                                                    <option value="#">Pilih Kategori</option>
-                                                    <!-- Loop kategori -->
-                                                </select>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                    <td>ID Barang</td>
+                                    <td><input type="text" readonly="readonly" required class="form-control" name="id" value="<?= uniqid('BRG-'); ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td>Kategori</td>
+                                    <td>
+                                        <select name="kategori" class="form-control" required>
+                                            <option value="">Pilih Kategori</option>
+                                            <?php foreach ($kategori as $kategori_item) : ?>
+                                                <option value="<?= $kategori_item['id_kategori']; ?>"><?= $kategori_item['nama_kategori']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </td>
+                                </tr>
                                         <tr>
                                             <td>Nama Barang</td>
                                             <td><input type="text" placeholder="Nama Barang" required class="form-control" name="nama"></td>
@@ -173,6 +190,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>

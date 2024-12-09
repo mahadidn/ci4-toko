@@ -8,25 +8,25 @@
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
     <title>Arga Dwi Mart </title>
-    <link rel="shortcut icon" href="assets/img/favicon2.ico">
+    <link rel="shortcut icon" href="<?= base_url('assets/img/favicon2.ico') ?>">
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= base_url('assets/css/bootstrap.css') ?>" rel="stylesheet">
     <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
-    <link rel="stylesheet" type="text/css" href="assets/datatables/dataTables.bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
-    <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">    
+    <link href="<?= base_url('assets/font-awesome/css/font-awesome.css') ?>" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/zabuto_calendar.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/datatables/dataTables.bootstrap.css') ?>"/>
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/js/gritter/css/jquery.gritter.css') ?>" />
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/lineicons/style.css') ?>">    
     
     <!-- Custom styles for this template -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet">
+    <link href="<?= base_url('assets/css/style.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/style-responsive.css') ?>" rel="stylesheet">
 
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/datatables/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="assets/datatables/dataTables.bootstrap.js"></script>
-        <script type="text/javascript" src="assets/js/jquery-2.2.3.min.js"></script>
+        <script type="text/javascript" src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
+        <script type="text/javascript" src="<?= base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
+        <script type="text/javascript" src="<?= base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
+        <script type="text/javascript" src="<?= base_url('assets/js/jquery-2.2.3.min.js') ?>"></script>
     <style>
 		.header{background:#527be3; color:#fff;}
 		#main-content{ background:#fff;}
