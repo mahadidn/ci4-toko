@@ -132,9 +132,9 @@
                                 <div class="modal-body">
                                     <table class="table table-striped bordered">
                                     <tr>
-                                    <td>ID Barang</td>
-                                    <td><input type="text" readonly="readonly" required class="form-control" name="id" value="<?= uniqid('BRG-'); ?>"></td>
-                                </tr>
+    <td>ID Barang</td>
+    <td><input type="text" readonly="readonly" required class="form-control" name="id" value="BG-<?= sprintf('%03d', count($barang) + 1); ?>"></td>
+</tr>
                                 <tr>
                                     <td>Kategori</td>
                                     <td>

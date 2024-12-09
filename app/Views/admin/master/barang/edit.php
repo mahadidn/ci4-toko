@@ -1,7 +1,10 @@
 <?= $this->extend('admin/layout') ?>
 
 <?= $this->section('content') ?>
-
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12 main-chart">
 <a href="<?= base_url('/barang'); ?>" class="btn btn-primary">
     <i class="fa fa-angle-left"></i> Balik
 </a>
@@ -20,7 +23,7 @@
     
     <input type="hidden" name="id" value="<?= $barang['id_barang']; ?>">
     
-    <table class="table table-striped">
+    <table class="table table-bordered table-striped" id="example1">
         <tr>
             <td>ID Barang</td>
             <td><?= $barang['id_barang']; ?></td>
@@ -72,5 +75,8 @@
         </tr>
     </table>
 </form>
-
+</div>
+</div>
+</section>
+</section>
 <?= $this->endSection() ?>
