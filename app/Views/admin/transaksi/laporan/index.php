@@ -16,7 +16,7 @@
                 </h3>
                 <br/>
                 <h4>Cari Laporan Per Bulan</h4>
-                <form method="post" action="<?= site_url('laporan/cari') ?>">
+                <form method="post" action="<?= base_url('laporan/cari') ?>">
                     <table class="table table-striped">
                         <tr>
                             <th>Pilih Bulan</th>
@@ -28,7 +28,7 @@
                                 <select name="bln" class="form-control">
                                     <option selected="selected">Bulan</option>
                                     <?php foreach ($bulan as $key => $value): ?>
-                                        <option value="<?= str_pad($key + 1, 2, '0', STR_PAD_LEFT) ?>"><?= $value ?></option>
+                                        <option value="<?= $value ?>"><?= $value ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </td>

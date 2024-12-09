@@ -29,8 +29,12 @@ $routes->group('/', ['filter' => 'isLogin'], function ($routes) {
         $routes->post('bayar', 'Admin\Transaksi\JualController::bayar');
 
     });
+    // laporan
+    $routes->group('laporan', function($routes){
+        $routes->get('', 'Admin\Transaksi\LaporanController::index');
+        $routes->post('cari', 'Admin\Transaksi\LaporanController::cari');
 
-    $routes->get('laporan', 'Admin\Transaksi\LaporanController::index');
+    });
 
     $routes->get('pengaturan', 'Admin\Setting\PengaturanController::index');
 });
