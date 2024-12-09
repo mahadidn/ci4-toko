@@ -30,7 +30,7 @@
                             </center>
                         </div>
                         <div class="panel-footer">
-                            <form method="POST" action="<?= site_url('admin/master/user/edit') ?>" enctype="multipart/form-data">
+                            <form method="POST" action="<?= base_url('user/edit-image') ?>" enctype="multipart/form-data">
                                 <input type="file" accept="image/*" name="foto">
                                 <input type="hidden" value="<?= $data['gambar'] ?>" name="foto2">
                                 <input type="hidden" name="id" value="<?= $data['id_member'] ?>">
@@ -50,7 +50,7 @@
                             <h4><i class="fa fa-user"></i> Kelola Pengguna </h4>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" method="POST" action="<?= site_url('admin/master/user/edit') ?>" enctype="multipart/form-data">
+                            <form class="form-horizontal" method="POST" action="<?= base_url('user/edit') ?>" enctype="multipart/form-data">
                                 <fieldset>
                                     <div class="control-group">
                                         <label class="control-label" for="typeahead">Nama </label>
@@ -114,7 +114,7 @@
                             <h4><i class="fa fa-lock"></i> Ganti Password</h4>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" method="POST" action="<?= site_url('admin/master/user/change_password') ?>">
+                            <form class="form-horizontal" method="POST" action="<?= base_url('user/change-password') ?>">
                                 <fieldset>
                                     <div class="control-group">
                                         <label class="control-label" for="typeahead">Username </label>

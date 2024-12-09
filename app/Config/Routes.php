@@ -14,23 +14,36 @@ $routes->get('logout', 'LoginController::logout');
 // Group routes with 'isLogin' filter
 $routes->group('/', ['filter' => 'isLogin'], function ($routes) {
     $routes->get('', 'Admin\Dashboard::index');
-    $routes->get('barang', 'Admin\Master\BarangController::index');
-    $routes->post('barang/create', 'Admin\Master\BarangController::create');
-    $routes->get('barang/edit/(:any)', 'Admin\Master\BarangController::edit/$1');
-    $routes->post('barang/update/(:any)', 'Admin\Master\BarangController::update/$1');
-    $routes->post('barang/restok', 'Admin\Master\BarangController::restok');
-    $routes->get('barang/delete/(:any)', 'Admin\Master\BarangController::delete/$1');
-    $routes->get('barang/detail/(:any)', 'Admin\Master\BarangController::detail/$1');
-    // Routes for kategori
-    $routes->get('kategori', 'Admin\Master\KategoriController::index'); // Menampilkan data kategori
-    $routes->get('kategori/create', 'Admin\Master\KategoriController::create'); // Form tambah kategori
-    $routes->post('kategori/store', 'Admin\Master\KategoriController::store'); // Menyimpan kategori
-    $routes->get('kategori/edit/(:num)', 'Admin\Master\KategoriController::edit/$1'); // Form edit kategori
-    $routes->post('kategori/update/(:num)', 'Admin\Master\KategoriController::update/$1'); // Menyimpan perubahan kategori
-    $routes->get('kategori/delete/(:num)', 'Admin\Master\KategoriController::delete/$1'); // Hapus kategori
-    
-    
-    $routes->get('user', 'Admin\Master\UserController::index');
+
+    // barang
+    $routes->group('barang', function($routes){
+        $routes->get('', 'Admin\Master\BarangController::index');
+        $routes->post('create', 'Admin\Master\BarangController::create');
+        $routes->get('edit/(:any)', 'Admin\Master\BarangController::edit/$1');
+        $routes->post('update/(:any)', 'Admin\Master\BarangController::update/$1');
+        $routes->post('restok', 'Admin\Master\BarangController::restok');
+        $routes->get('delete/(:any)', 'Admin\Master\BarangController::delete/$1');
+        $routes->get('detail/(:any)', 'Admin\Master\BarangController::detail/$1');
+    });
+
+    //kategori
+    $routes->group('kategori', function($routes){
+        $routes->get('', 'Admin\Master\KategoriController::index'); 
+        $routes->get('create', 'Admin\Master\KategoriController::create'); 
+        $routes->post('store', 'Admin\Master\KategoriController::store'); 
+        $routes->get('edit/(:num)', 'Admin\Master\KategoriController::edit/$1'); 
+        $routes->post('update/(:num)', 'Admin\Master\KategoriController::update/$1'); 
+        $routes->get('delete/(:num)', 'Admin\Master\KategoriController::delete/$1');
+    });
+
+    // user
+    $routes->group('user', function($routes){
+         $routes->get('', 'Admin\Master\UserController::index');
+         $routes->post('edit', 'Admin\Master\UserController::updateProfile');
+         $routes->post('edit-image', 'Admin\Master\UserController::updateProfileImage');
+         $routes->post('change-password', 'Admin\Master\UserController::changePassword');
+    });
+
 
     // transaksi
     // jual

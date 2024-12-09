@@ -52,7 +52,7 @@
                 </ul>
             </li>
 
-            <!-- <li class="sub-menu">
+            <li class="sub-menu">
                 <a href="javascript:;">
                     <i class="fa fa-cog"></i>
                     <span>Setting 
@@ -64,7 +64,7 @@
                 <ul class="sub">
                     <li><a href="<?= base_url('pengaturan') ?>">Pengaturan Toko</a></li>
                 </ul>
-            </li> -->
+            </li>
         </ul>
         <!-- sidebar menu end-->
     </div>
