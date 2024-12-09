@@ -87,10 +87,10 @@
                                     <td><?= $isi['satuan_barang']; ?></td>
                                     <td>
                                         <?php if ($isi['stok'] <= '3') { ?>
-                                            <form method="POST" action="#">
-                                                <input type="text" name="restok" class="form-control">
-                                                <input type="hidden" name="id" value="<?= $isi['id_barang']; ?>" class="form-control">
-                                                <button class="btn btn-primary">Restok</button>
+                                            <form method="POST" action="<?= site_url('barang/restok') ?>">
+                                                <input type="number" name="restok" class="form-control" min="1" required>
+                                                <input type="hidden" name="id" value="<?= $isi['id_barang']; ?>">
+                                                <button type="submit" class="btn btn-primary">Restok</button>
                                             </form>
                                         <?php } else { ?>
                                             <a href="<?= site_url('barang/detail/'.$isi['id_barang']) ?>">
