@@ -10,7 +10,7 @@
               <div class="row">
                   <div class="col-lg-9">
 					<div class="row" style="margin-left:1pc;margin-right:1pc;">
-				  <h1><img src="assets/img/001-stationery.png" height="50" widht = "50" alt="Logo"> DASHBOARD </h1>
+				  <h1><img src="<?= base_url('assets/img/001-stationery.png') ?>" height="50" widht = "50" alt="Logo"> DASHBOARD </h1>
 				  <hr>
 				   <?php 
 						
