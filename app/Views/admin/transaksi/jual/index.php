@@ -36,7 +36,21 @@
                             <h4><i class="fa fa-list"></i> Hasil Pencarian</h4>
                         </div>
                         <div class="panel-body">
-                            <div id="hasil_cari"></div>
+                            <div id="hasil_cari">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID Barang</th>
+                                            <th>Nama Barang</th>
+                                            <th>Merk</th>
+                                            <th>Harga Jual</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                             <div id="tunggu"></div>
                         </div>
                     </div>
@@ -77,7 +91,7 @@
                                                 <td><?= $no; ?></td>
                                                 <td><?= $isi['nama_barang']; ?></td>
                                                 <td>
-                                                    <form method="POST" action="#">
+                                                    <form method="POST" action="/jual/edit-barang">
                                                         <input type="number" name="jumlah" value="<?= $isi['jumlah']; ?>" class="form-control">
                                                         <input type="hidden" name="id" value="<?= $isi['id_penjualan']; ?>" class="form-control">
                                                         <input type="hidden" name="id_barang" value="<?= $isi['id_barang']; ?>" class="form-control">
@@ -86,7 +100,8 @@
                                                 <td><?= $isi['nm_member']; ?></td>
                                                 <td>
                                                     <button type="submit" class="btn btn-warning">Update</button>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                                    </form>
+                                                    <a href="/jual/hapus-barang?brg=<?= $isi['id_barang'] ?>&jml=<?= $isi['jumlah'] ?>&id=<?= $isi['id_penjualan'] ?>" class="btn btn-danger"><i class="fa fa-times"></i></a>
                                                 </td>
                                             </tr>
                                             <?php $no++; $total_bayar += $isi['total']; ?>
@@ -96,7 +111,16 @@
                                 <br/>
                                 <div id="kasirnya">
                                     <table class="table table-stripped">
-                                        <form method="POST" action="#">
+                                        <form method="POST" action="/jual/bayar">
+                                            <?php foreach($penjualan as $isi){;?>
+												<input type="hidden" name="id_barang[]" value="<?php echo $isi['id_barang'];?>">
+												<input type="hidden" name="id_member[]" value="<?php echo $isi['id_member'];?>">
+												<input type="hidden" name="jumlah[]" value="<?php echo $isi['jumlah'];?>">
+												<input type="hidden" name="total1[]" value="<?php echo $isi['total'];?>">
+											<?php $no++; }?>
+											<input type="hidden" name="periode" value="<?php echo date('m-Y');?>">
+											<input type="hidden" name="tanggal" value="<?php echo date("j F Y");?>" >
+
                                             <tr>
                                                 <td>Total Semua</td>
                                                 <td><input type="text" class="form-control" name="total" value="<?= $total_bayar; ?>"></td>
@@ -129,13 +153,71 @@
 </section>
 
 <script>
-    // Dummy JavaScript for search functionality
-    $(document).ready(function(){
-        $("#cari").change(function(){
-            // Here you can implement the search functionality later
-            $("#hasil_cari").html("<p>Results will be displayed here</p>");
+
+    $(document).ready(function() {
+        $("#cari").change(function() {
+            var query = $(this).val(); // Ambil nilai input
+            if (query.length >= 1) { // Mulai pencarian jika panjang minimal 1 karakter
+                $.ajax({
+                    url: "<?= base_url('/jual/cari-barang') ?>", // Endpoint pencarian
+                    type: "GET",
+                    data: { q: query },
+                    dataType: "json",
+                    beforeSend: function() {
+                        $("#hasil_cari tbody").html("<tr><td colspan='5'>Sedang mencari...</td></tr>");
+                    },
+                    success: function(data) {
+                        var html = "";
+                        if (data.length > 0) {
+                            data.forEach(function(item) {
+                                html += `<tr>
+                                    <td>${item.id_barang}</td>
+                                    <td>${item.nama_barang}</td>
+                                    <td>${item.merk}</td>
+                                    <td>${item.harga_jual}</td>
+                                    <td>
+                                        <a href="/jual/tambah-barang?id_barang=${item.id_barang}&id_kasir=<?= session()->get('id_member') ?>" class="btn btn-success">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </td>
+                                </tr>`;
+                            });
+                        } else {
+                            html = "<tr><td colspan='5'>Barang tidak ditemukan.</td></tr>";
+                        }
+                        $("#hasil_cari tbody").html(html);
+                    },
+                    error: function() {
+                        $("#hasil_cari tbody").html("<tr><td colspan='5'>Terjadi kesalahan. Coba lagi.</td></tr>");
+                    }
+                });
+            } else {
+                $("#hasil_cari tbody").html("<tr><td colspan='5'>Masukkan minimal 1 karakter untuk mencari.</td></tr>");
+            }
         });
     });
 </script>
+
+<?php if (session()->getFlashdata('success')) : ?>
+    <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('error')) : ?>
+    <script>
+        alert("Stok tidak mencukupi");
+    </script>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('errorUangKurang')) : ?>
+    <script>
+        alert("Saldo Tidak Cukup Untuk Melakukan Pembayaran");
+    </script>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('successBelanja')) : ?>
+    <script>
+        alert("Berhasil belanja");
+    </script>
+<?php endif; ?>
 
 <?= $this->endSection() ?>

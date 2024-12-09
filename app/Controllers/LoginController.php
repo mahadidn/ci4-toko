@@ -65,13 +65,13 @@ class LoginController extends BaseController
                                 ->where('login.user', $user)
                                 ->where('login.pass', md5($pass))
                                 ->first();
-
             // jika login valid
             if($isValid){
                 
                 // buat data session di ci
                 $sessionData = [
                     'logged_in' => TRUE,
+                    'id_member' => $isValid['id_member'],
                     'nama' => $isValid['nm_member'],
                     'user' => $isValid['user'],
                     'alamat' => $isValid['alamat_member'],

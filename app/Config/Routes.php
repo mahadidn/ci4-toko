@@ -17,7 +17,20 @@ $routes->group('/', ['filter' => 'isLogin'], function ($routes) {
     $routes->get('barang', 'Admin\Master\BarangController::index');
     $routes->get('kategori', 'Admin\Master\KategoriController::index');
     $routes->get('user', 'Admin\Master\UserController::index');
-    $routes->get('jual', 'Admin\Transaksi\JualController::index');
+
+    // transaksi
+    // jual
+    $routes->group('jual', function($routes){
+        $routes->get('', 'Admin\Transaksi\JualController::index');
+        $routes->get('cari-barang', 'Admin\Transaksi\JualController::getBarang');
+        $routes->get('tambah-barang', 'Admin\Transaksi\JualController::tambahBarang');
+        $routes->get('hapus-barang', 'Admin\Transaksi\JualController::deleteBarang');
+        $routes->post('edit-barang', 'Admin\Transaksi\JualController::editBarang');
+        $routes->post('bayar', 'Admin\Transaksi\JualController::bayar');
+
+    });
+
     $routes->get('laporan', 'Admin\Transaksi\LaporanController::index');
+
     $routes->get('pengaturan', 'Admin\Setting\PengaturanController::index');
 });

@@ -15,5 +15,13 @@ class PenjualanSeeder extends Seeder
             'jumlah' => '1',
             'total' => 2000,
         ]);
+
+        $this->db->table('penjualan')->insert([
+            'id_penjualan' => 2,
+            'id_barang' => 'BR005', 
+            'id_member' => 1,
+            'jumlah' => '2',
+            'total' => 436000,
+        ]);
     }
 }
