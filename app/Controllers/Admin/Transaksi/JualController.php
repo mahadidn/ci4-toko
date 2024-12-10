@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\DetailNota;
 use App\Models\Nota;
 use App\Models\Penjualan;
+use App\Models\Toko;
 
 class JualController extends BaseController
 {
@@ -186,6 +187,37 @@ class JualController extends BaseController
                         'total' => $total[$x]
                     ]);
                 }
+
+                if(!is_null($this->request->getPost('cetak'))){
+                    // =====print======
+                    $toko = new Toko();
+
+                    $toko = $toko->select('toko.id_toko, toko.nama_toko, toko.alamat_toko, toko.nama_pemilik, member.nm_member, telepon')
+                        ->join("member", "member.id_member = toko.id_member")
+                        ->first();
+                    $penjualan = $penjualanModel->select('penjualan.*, barang.id_barang, barang.nama_barang')
+                        ->join('barang', 'barang.id_barang = penjualan.id_barang', 'left')
+                        ->findAll();
+                    
+                    $data = [
+                        "toko" => $toko,
+                        "no_transaksi" => $nextNoTransaksi,
+                        "penjualan" => $penjualan,
+                        "bayar" => $bayar,
+                        "jumlah" => $totalBelanja,
+                        "kembalian" => $kembalian
+                    ];
+
+                    $sendData = [
+                        "data" => $data
+                    ];
+
+                    $penjualanModel->truncate();
+
+                    return view('admin/transaksi/jual/print', $sendData);
+                    // ========print========
+                }
+
                 // hapus penjualan buat ngereset mesin kasirnya
                 $penjualanModel->truncate();
 
@@ -196,6 +228,28 @@ class JualController extends BaseController
         }
 
         return redirect()->back()->with('error', 'Pembayaran gagal.');
+    }
+
+    public function cetakPdf($data){
+
+        $sendData = [
+            "data" => $data
+        ];
+
+        return view('admin/transaksi/jual/print', $sendData);
+
+
+
+    }
+
+    public function resetKeranjang(){
+
+        $penjualan = new Penjualan();
+
+        $penjualan->truncate();
+
+        return redirect()->to(base_url('/jual'));
+
     }
 
 }

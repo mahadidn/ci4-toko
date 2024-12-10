@@ -54,6 +54,7 @@ $routes->group('/', ['filter' => 'isLogin'], function ($routes) {
         $routes->get('hapus-barang', 'Admin\Transaksi\JualController::deleteBarang');
         $routes->post('edit-barang', 'Admin\Transaksi\JualController::editBarang');
         $routes->post('bayar', 'Admin\Transaksi\JualController::bayar');
+        $routes->get('reset-keranjang', 'Admin\Transaksi\JualController::resetKeranjang');
 
     });
     // laporan
