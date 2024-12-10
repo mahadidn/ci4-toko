@@ -2,12 +2,18 @@
 
 <?= $this->section('content') ?>
 
-<a href="<?= base_url('/admin/master/barang'); ?>" class="btn btn-primary">
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12 main-chart">
+                
+                <br/>
+<a href="<?= base_url('/barang'); ?>" class="btn btn-primary">
     <i class="fa fa-angle-left"></i> Balik
 </a>
 <h3>Detail Barang</h3>
 
-<table class="table table-striped">
+<table class="table table-bordered table-striped" id="example1">
     <tr>
         <td>ID Barang</td>
         <td><?= $barang['id_barang']; ?></td>
@@ -40,10 +46,11 @@
         <td>Stok</td>
         <td><?= $barang['stok']; ?></td>
     </tr>
-    <tr>
-        <td>Tanggal Update</td>
-        <td><?= $barang['tgl_update']; ?></td>
-    </tr>
+    
 </table>
-
+</div>
+</div>
+</section>
+</section>
+<br><br><br>
 <?= $this->endSection() ?>

@@ -94,7 +94,11 @@ class BarangController extends BaseController
 
     public function edit($id)
     {
-        $barang = $this->barangModel->find($id);
+        $barang = $this->barangModel
+            ->select('barang.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.id_kategori = barang.id_kategori', 'left')
+            ->find($id);
+    
         if (!$barang) {
             return redirect()->to('/barang')->with('error', 'Data Barang tidak ditemukan');
         }
@@ -108,7 +112,7 @@ class BarangController extends BaseController
     {
         // Aturan validasi
         $validationRules = [
-            'id' => 'required|is_unique[barang.id_barang,id_barang,' . $id . ']', // Exclude the current record from 'is_unique' validation
+            'id' => 'required',
             'kategori' => 'required|numeric',
             'nama' => 'required|max_length[255]',
             'merk' => 'required|max_length[255]',
@@ -116,7 +120,7 @@ class BarangController extends BaseController
             'jual' => 'required|numeric|greater_than[0]',
             'satuan' => 'required',
             'stok' => 'required|numeric|greater_than_equal_to[0]',
-            'tgl' => 'required|valid_date'
+        
         ];
     
         // Validasi input
@@ -136,32 +140,70 @@ class BarangController extends BaseController
             'harga_jual' => $this->request->getPost('jual'),
             'satuan_barang' => $this->request->getPost('satuan'),
             'stok' => $this->request->getPost('stok'),
-            'tgl_input' => $this->request->getPost('tgl'),
-            'id_member' => session()->get('id_member') ?? 1
+            'id_member' => session()->get('id_member') ?? 1,
         ];
     
         try {
-            // Debug log untuk melihat data yang akan di-update
-            log_message('debug', 'Data Barang: ' . print_r($barangData, true));
-    
             // Update data
             if ($this->barangModel->update($id, $barangData)) {
                 return redirect()->to('/barang')->with('success', 'Data Barang berhasil diupdate');
             } else {
-                log_message('error', 'Gagal memperbarui data barang');
                 return redirect()->back()
                     ->withInput()
                     ->with('error', 'Gagal memperbarui data barang');
             }
         } catch (\Exception $e) {
-            log_message('error', 'Terjadi kesalahan: ' . $e->getMessage());
             return redirect()->back()
                 ->withInput()
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
     
+    public function restok()
+{
+    // Validasi input
+    $validationRules = [
+        'id' => 'required',
+        'restok' => 'required|numeric|greater_than[0]'
+    ];
 
+    if (!$this->validate($validationRules)) {
+        // Tangkap detail kesalahan validasi
+        $errors = $this->validator->getErrors();
+        
+        // Redirect kembali dengan pesan kesalahan spesifik
+        return redirect()->back()
+            ->withInput()
+            ->with('errors', $errors);
+    }
+
+    $id = $this->request->getPost('id');
+    $restokAmount = $this->request->getPost('restok');
+
+    try {
+        // Ambil data barang saat ini
+        $barang = $this->barangModel->find($id);
+
+        if (!$barang) {
+            return redirect()->back()->with('error', 'Barang tidak ditemukan');
+        }
+
+        // Update stok
+        $newStok = $barang['stok'] + $restokAmount;
+        
+        $updateData = [
+            'stok' => $newStok
+        ];
+
+        if ($this->barangModel->update($id, $updateData)) {
+            return redirect()->to('/barang')->with('success', "Berhasil menambah stok sebanyak $restokAmount");
+        } else {
+            return redirect()->back()->with('error', 'Gagal update stok');
+        }
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+    }
+}
     public function detail($id)
 {
     try {
@@ -172,7 +214,7 @@ class BarangController extends BaseController
             ->find($id);
 
         if (!$barang) {
-            return redirect()->to('/admin/master/barang')->with('error', 'Data Barang tidak ditemukan');
+            return redirect()->to('/barang')->with('error', 'Data Barang tidak ditemukan');
         }
 
         return view('admin/master/barang/details', compact('barang'));
