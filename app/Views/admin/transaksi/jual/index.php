@@ -329,7 +329,7 @@
     <script>
         Swal.fire({
             title: "<strong>Transaksi Berhasil</strong>",
-            icon: "info",
+            icon: "success",
             focusConfirm: false,
             confirmButtonText: `
                 OK
