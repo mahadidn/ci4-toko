@@ -57,12 +57,11 @@ $routes->group('/', ['filter' => 'isLogin'], function ($routes) {
         $routes->get('reset-keranjang', 'Admin\Transaksi\JualController::resetKeranjang');
 
     });
-    // laporan
-    $routes->group('laporan', function($routes){
-        $routes->get('', 'Admin\Transaksi\LaporanController::index');
-        $routes->post('cari', 'Admin\Transaksi\LaporanController::cari');
 
+    // pengaturan
+    $routes->group('pengaturan', function($routes){
+        $routes->get('', 'Admin\Setting\PengaturanController::index');
+        $routes->post('', 'Admin\Setting\PengaturanController::updateToko');
     });
 
-    $routes->get('pengaturan', 'Admin\Setting\PengaturanController::index');
 });

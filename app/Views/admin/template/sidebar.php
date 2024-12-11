@@ -48,7 +48,6 @@
                 </a>
                 <ul class="sub">
                     <li><a href="<?= base_url('jual') ?>">Transaksi Jual</a></li>
-                    <li><a href="<?= base_url('laporan') ?>">Laporan Penjualan</a></li>
                 </ul>
             </li>
 
