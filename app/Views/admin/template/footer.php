@@ -42,16 +42,6 @@
 			$('#example2').DataTable();
 		});
 	</script>
-		<?php
-			// $sql=" select * from barang where stok <=3";
-			// $row = $config -> prepare($sql);
-			// $row -> execute();
-			// $q = $row -> fetch();
-            $q = 1;
-				if($q == 3){
-				if($q == 2){
-				if($q == 1){
-		?>
 		<script type="text/javascript">
 		//template
         $(document).ready(function () {
@@ -74,38 +64,7 @@
         return false;
         });
 		</script>
-        <?php  }}}?>
 	<script type="application/javascript">
-        $(document).ready(function () {
-            $("#date-popover").popover({html: true, trigger: "manual"});
-            $("#date-popover").hide();
-            $("#date-popover").click(function (e) {
-                $(this).hide();
-            });
-
-            $("#my-calendar").zabuto_calendar({
-                action: function () {
-                    return myDateFunction(this.id, false);
-                },
-                action_nav: function () {
-                    return myNavFunction(this.id);
-                },
-                ajax: {
-                    url: "",
-                    modal: true
-                },
-                legend: [  ]
-            });
-        });
-
-
-        function myNavFunction(id) {
-            $("#date-popover").hide();
-            var nav = $("#" + id).data("navigation");
-            var to = $("#" + id).data("to");
-            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-        }
-
 
         //angka 500 dibawah ini artinya pesan akan muncul dalam 0,5 detik setelah document ready
 		$(document).ready(function(){setTimeout(function(){$(".alert-danger").fadeIn('slow');}, 500);});

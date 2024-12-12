@@ -47,7 +47,7 @@
 									<center><h1><?= $totalBarang;?></h1></center>
 								</div>
 								<div class="panel-footer">
-									<h4 style="font-size:15px;font-weight:700;"><a href='index.php?page=barang'>Tabel Barang <i class='fa fa-angle-double-right'></i></a></h4>
+									<h4 style="font-size:15px;font-weight:700;"><a href='/barang'>Tabel Barang <i class='fa fa-angle-double-right'></i></a></h4>
 								</div>
 	                      	</div><!--/grey-panel -->
                       	</div><!-- /col-md-3-->
@@ -61,7 +61,7 @@
 									<center><h1><?= $jumlahBarang ?></h1></center>
 								</div>
 								<div class="panel-footer">
-									<h4 style="font-size:15px;font-weight:700;"><a href='index.php?page=barang'>Tabel Barang  <i class='fa fa-angle-double-right'></i></a></h4>
+									<h4 style="font-size:15px;font-weight:700;"><a href='/barang'>Tabel Barang  <i class='fa fa-angle-double-right'></i></a></h4>
 								</div>
 	                      	</div><!--/grey-panel -->
                       	</div><!-- /col-md-3-->
@@ -75,7 +75,7 @@
 									<center><h1><?= $jual ?></h1></center>
 								</div>
 								<div class="panel-footer">
-									<h4 style="font-size:15px;font-weight:700;font-weight:700;"><a href='index.php?page=laporan'>Tabel laporan  <i class='fa fa-angle-double-right'></i></a></h4>
+									<h4 style="font-size:15px;font-weight:700;font-weight:700;"><a href='/jual'>Penjualan  <i class='fa fa-angle-double-right'></i></a></h4>
 								</div>
 	                      	</div><!--/grey-panel -->
                       	</div><!-- /col-md-3-->
@@ -88,7 +88,7 @@
 									<center><h1><?= $totalKategori ?></h1></center>
 								</div>
 								<div class="panel-footer">
-									<h4 style="font-size:15px;font-weight:700;"><a href='index.php?page=kategori'>Tabel Kategori  <i class='fa fa-angle-double-right'></i></a></h4>
+									<h4 style="font-size:15px;font-weight:700;"><a href='/kategori'>Tabel Kategori  <i class='fa fa-angle-double-right'></i></a></h4>
 								</div>
 	                      	</div><!--/grey-panel -->
                       	</div><!-- /col-md-3-->
@@ -101,18 +101,6 @@
       *********************************************************************************************************************************************************** -->                  
                   
 			<div class="col-lg-3 ds">
-				<div id="calendar" class="mb" style="background-color:#3399ff; color:black">
-					<div class="panel green-panel no-margin">
-						<div class="panel-body">
-							<div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
-								<div class="arrow"></div>
-								<h3 class="popover-title" style="disadding: none;"></h3>
-								<div id="date-popover-content" class="popover-content"></div>
-							</div>
-							<div id="my-calendar" ></div>
-						</div>
-					</div>
-				</div><!-- / calendar -->
 			  </div><!-- /col-lg-3 -->
 		  </div><!--/row -->
 		 <div class="clearfix" style="padding-top:18%;"></div>
