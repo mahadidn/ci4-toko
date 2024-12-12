@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         // login
         $this->db->table('login')->insert([
             'user' => 'admin',
-            'pass' => '21232f297a57a5a743894a0e4a801fc3', // passwordnya: admin jadi kek gitu karna sudah di hash pake md5
+            'pass' => password_hash('admin', PASSWORD_BCRYPT), 
             'id_member' => 1
         ]);
 

@@ -58,8 +58,86 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" onclick="javascript: return confirm('Ingin Logout ?');" href="<?= base_url('/logout') ?>">Logout</a></li>
+                    <li><a class="logout" onclick="javascript: return confirmAlert()" href="#">Logout</a></li>
             	</ul>
             </div>
         </header>
       <!--header end-->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    /* Perbesar teks judul */
+.swal-title-large {
+    font-size: 3rem; /* Besar teks judul */
+    font-weight: bold;
+    color: #333;
+}
+
+/* Perbesar teks isi */
+.swal-text-large {
+    font-size: 3rem; /* Besar teks isi */
+    size: 5rem;
+    color: #555;
+}
+
+.text {
+    font-size: 3rem;
+}
+
+/* Perbesar tombol */
+.swal-button-large {
+    font-size: 1.5rem; /* Besar teks tombol */
+    padding: 0.8rem 1.5rem; /* Tambahkan padding */
+}
+
+</style>
+
+<script>
+    function confirmAlert(){
+       Swal.fire({
+            title: "Apakah ingin Logout?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak",
+            width: '600px',
+            customClass: {
+                title: 'swal-title-large',
+                htmlContainer: 'swal-text-large',
+                confirmButton: 'swal-button-large',
+                cancelButton: 'swal-button-large'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/logout";
+            }
+        });
+    }
+</script>
+<script>
+    function confirmHapusBarang(id_barang){
+       Swal.fire({
+            title: "Hapus data barang?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak",
+            width: '600px',
+            customClass: {
+                title: 'swal-title-large',
+                htmlContainer: 'swal-text-large',
+                confirmButton: 'swal-button-large',
+                cancelButton: 'swal-button-large'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `/barang/delete/${id_barang}`;
+            }
+        });
+    }
+</script>

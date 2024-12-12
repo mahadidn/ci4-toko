@@ -63,26 +63,41 @@ class LoginController extends BaseController
             $isValid = $memberModel->select('member.*, login.user, login.pass')
                                 ->join('login', 'member.id_member = login.id_member')
                                 ->where('login.user', $user)
-                                ->where('login.pass', md5($pass))
                                 ->first();
-            // jika login valid
+            // jika username ada
             if($isValid){
-                
-                // buat data session di ci
-                $sessionData = [
-                    'logged_in' => TRUE,
-                    'id_member' => $isValid['id_member'],
-                    'nama' => $isValid['nm_member'],
-                    'user' => $isValid['user'],
-                    'alamat' => $isValid['alamat_member'],
-                    'telepon' => $isValid['telepon'],
-                    'email' => $isValid['email'],
-                    'gambar' => $isValid['gambar'],
-                    'nik' => $isValid['NIK']
-                ];
 
-                $session->set($sessionData);
-                return redirect()->to(base_url('/'));
+                $pass_user = $isValid['pass'];
+
+                // cek password
+                $cekPassword = password_verify($pass, $pass_user);
+
+                // jika passwordnya bener
+                if($cekPassword){
+                    
+                    // buat data session di ci
+                    $sessionData = [
+                        'logged_in' => TRUE,
+                        'id_member' => $isValid['id_member'],
+                        'nama' => $isValid['nm_member'],
+                        'user' => $isValid['user'],
+                        'alamat' => $isValid['alamat_member'],
+                        'telepon' => $isValid['telepon'],
+                        'email' => $isValid['email'],
+                        'gambar' => $isValid['gambar'],
+                        'nik' => $isValid['NIK']
+                    ];
+    
+                    $session->set($sessionData);
+                    return redirect()->to(base_url('/'));
+                }else {
+                    // kalo passwordnya salah
+                    // jika tidak valid loginnya
+                    $session->setFlashdata('pesan', 'Login gagal');
+                    session()->setFlashdata('alert_type', 'danger');
+                    return redirect()->to(base_url('/login'))->withInput();
+                }
+                
             }else {
                 // jika tidak valid loginnya
                 $session->setFlashdata('pesan', 'Login gagal');

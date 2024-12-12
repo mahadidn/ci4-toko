@@ -9,19 +9,64 @@
                 <h3>Data Kategori</h3>
                 <br/>
                 <?php if (session()->getFlashdata('success')) : ?>
-                    <div class="alert alert-success">
-                        <p><?= session()->getFlashdata('success') ?></p>
-                    </div>
+                    <script>
+                        Swal.fire({
+                            title: "<strong><?= session()->getFlashdata('success') ?></strong>",
+                            icon: "success",
+                            focusConfirm: false,
+                            confirmButtonText: `
+                                OK
+                            `,
+                            width: '600px',
+                            customClass: {
+                                title: 'swal-title-large',
+                                htmlContainer: 'swal-text-large',
+                                confirmButton: 'swal-button-large',
+                                cancelButton: 'swal-button-large'
+                            }
+                            
+                        });
+                    </script>
                 <?php endif; ?>
                 <?php if (session()->getFlashdata('success-edit')) : ?>
-                    <div class="alert alert-success">
-                        <p><?= session()->getFlashdata('success-edit') ?></p>
-                    </div>
+                    <script>
+                        Swal.fire({
+                            title: "<strong><?= session()->getFlashdata('success-edit') ?></strong>",
+                            icon: "success",
+                            focusConfirm: false,
+                            confirmButtonText: `
+                                OK
+                            `,
+                            width: '600px',
+                            customClass: {
+                                title: 'swal-title-large',
+                                htmlContainer: 'swal-text-large',
+                                confirmButton: 'swal-button-large',
+                                cancelButton: 'swal-button-large'
+                            }
+                            
+                        });
+                    </script>
                 <?php endif; ?>
                 <?php if (session()->getFlashdata('remove')) : ?>
-                    <div class="alert alert-danger">
-                        <p><?= session()->getFlashdata('remove') ?></p>
-                    </div>
+                    <script>
+                        Swal.fire({
+                            title: "<strong><?= session()->getFlashdata('remove') ?></strong>",
+                            icon: "success",
+                            focusConfirm: false,
+                            confirmButtonText: `
+                                OK
+                            `,
+                            width: '600px',
+                            customClass: {
+                                title: 'swal-title-large',
+                                htmlContainer: 'swal-text-large',
+                                confirmButton: 'swal-button-large',
+                                cancelButton: 'swal-button-large'
+                            }
+                            
+                        });
+                    </script>
                 <?php endif; ?>
 
                 <a href="<?= base_url('kategori/create') ?>" class="btn btn-success">Tambah Kategori</a>
@@ -44,7 +89,7 @@
                                 <td><?= $isi['tgl_input']; ?></td>
                                 <td>
                                     <a href="<?= base_url('kategori/edit/' . $isi['id_kategori']); ?>" class="btn btn-warning">Edit</a>
-                                    <a href="<?= base_url('kategori/delete/' . $isi['id_kategori']); ?>" onclick="return confirm('Hapus Data Kategori?');" class="btn btn-danger">Hapus</a>
+                                    <a href="#" onclick="return confirmCategory('<?= $isi['id_kategori'] ?>');" class="btn btn-danger">Hapus</a>
                                 </td>
                             </tr>
                         <?php $no++; endforeach; ?>
@@ -54,5 +99,30 @@
         </div>
     </section>
 </section>
+
+<script>
+    function confirmCategory(id_kategori) { 
+        Swal.fire({
+            title: "Hapus Data Kategori?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak",
+            width: '600px',
+            customClass: {
+                title: 'swal-title-large',
+                htmlContainer: 'swal-text-large',
+                confirmButton: 'swal-button-large',
+                cancelButton: 'swal-button-large'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `kategori/delete/${id_kategori}`;
+            }
+        });
+     }
+</script>
 
 <?= $this->endSection() ?>

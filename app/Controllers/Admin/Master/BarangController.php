@@ -227,8 +227,12 @@ class BarangController extends BaseController
     public function delete($id)
     {
         try {
+
+            $barang = $this->barangModel->where('id_barang', $id)->first();
+            $barang = $barang['nama_barang'];
+            
             if ($this->barangModel->delete($id)) {
-                return redirect()->to('/barang')->with('success', 'Data Barang berhasil dihapus');
+                return redirect()->to('/barang')->with('success', "Data Barang $barang berhasil dihapus");
             } else {
                 return redirect()->back()->with('error', 'Gagal menghapus data barang');
             }

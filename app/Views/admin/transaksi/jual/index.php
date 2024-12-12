@@ -154,33 +154,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<style>
-    /* Perbesar teks judul */
-.swal-title-large {
-    font-size: 3rem; /* Besar teks judul */
-    font-weight: bold;
-    color: #333;
-}
-
-/* Perbesar teks isi */
-.swal-text-large {
-    font-size: 3rem; /* Besar teks isi */
-    size: 5rem;
-    color: #555;
-}
-
-.text {
-    font-size: 3rem;
-}
-
-/* Perbesar tombol */
-.swal-button-large {
-    font-size: 1.5rem; /* Besar teks tombol */
-    padding: 0.8rem 1.5rem; /* Tambahkan padding */
-}
-
-</style>
-
 <script>
 
     $('#resetKeranjang').click(function(event){
@@ -214,24 +187,28 @@
         Swal.fire({
             title: "Apakah ingin cetak bukti pembayaran?",
             icon: "question",
+            showDenyButton: true,
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
+            denyButtonColor: "#808080",
             cancelButtonColor: "#d33",
             confirmButtonText: "Ya",
-            cancelButtonText: "Tidak",
+            denyButtonText: "Tidak",
+            cancelButtonText: "Batalkan Pembayaran",
             width: '600px',
             customClass: {
                 title: 'swal-title-large',
                 htmlContainer: 'swal-text-large',
                 confirmButton: 'swal-button-large',
-                cancelButton: 'swal-button-large'
+                cancelButton: 'swal-button-large',
+                denyButton: 'swal-button-large'
             }
         }).then((result) => {
             if (result.isConfirmed) {
                 // Jika pengguna mengonfirmasi, jalankan form post
                 $("input[name='cetak']").prop("checked", true);
                 $('#formBayar').submit(); // Kirim form
-            } else {
+            }else if(result.isDenied){
                 $("input[name='cetak']").prop("checked", false); // Ceklis checkbox
                 $('#formBayar').submit();
             }

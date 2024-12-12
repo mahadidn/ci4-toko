@@ -11,9 +11,24 @@
 
                 <!-- Flash Message -->
                 <?php if (session()->getFlashdata('success')): ?>
-                    <div class="alert alert-success">
-                        <p><?= session()->getFlashdata('success'); ?></p>
-                    </div>
+                    <script>
+                        Swal.fire({
+                            title: "<strong><?= session()->getFlashdata('success') ?></strong>",
+                            icon: "success",
+                            focusConfirm: false,
+                            confirmButtonText: `
+                                OK
+                            `,
+                            width: '600px',
+                            customClass: {
+                                title: 'swal-title-large',
+                                htmlContainer: 'swal-text-large',
+                                confirmButton: 'swal-button-large',
+                                cancelButton: 'swal-button-large'
+                            }
+                            
+                        });
+                </script>
                 <?php endif; ?>
                 <?php if (session()->getFlashdata('error')): ?>
                     <div class="alert alert-danger">
@@ -99,9 +114,9 @@
                                             <a href="<?= site_url('barang/edit/'.$isi['id_barang']) ?>">
                                                 <button class="btn btn-warning btn-xs">Edit</button>
                                             </a>
-                                            <a href="<?= site_url('barang/delete/'.$isi['id_barang']) ?>" 
-                                               onclick="javascript:return confirm('Hapus Data barang?');">
-                                                <button class="btn btn-danger btn-xs">Hapus</button>
+                                            <a href="#" 
+                                               onclick="javascript:return confirmHapusBarang('<?= $isi['id_barang'] ?>');">
+                                                <button onclick="" class="btn btn-danger btn-xs">Hapus</button>
                                             </a>
                                         <?php } ?>
                                     </td>
@@ -194,4 +209,31 @@
             </div>
         </div>
     </section>
+
+<script>
+    function confirmHapusBarang(isi_barang){
+       Swal.fire({
+            title: "Hapus Data Barang?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak",
+            width: '600px',
+            customClass: {
+                title: 'swal-title-large',
+                htmlContainer: 'swal-text-large',
+                confirmButton: 'swal-button-large',
+                cancelButton: 'swal-button-large'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `barang/delete/${isi_barang}`;
+            }
+        });
+    }
+
+</script>
+
 <?= $this->endSection() ?>

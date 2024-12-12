@@ -22,7 +22,7 @@ class Login extends Migration
             ],
             'pass' => [
                 'type'       => 'CHAR',
-                'constraint' => 32,
+                'constraint' => 255,
                 'null'       => false,
             ],
             'id_member' => [
